@@ -38,7 +38,7 @@ jobs:
       - name: Archive Demo for Release
         uses: papeloto/action-zip@v1
         with:
-          files: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.jar ./mswing-demo/target/mswing-demo-lib
+          files: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.jar ./mswing-demo/target/mswing-demo-lib/
           dest: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.zip
       
       - name: Archive Comps for Release
