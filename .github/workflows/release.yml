@@ -38,14 +38,14 @@ jobs:
       - name: Archive Demo for Release
         uses: papeloto/action-zip@v1
         with:
-          files: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.jar ./mswing-demo/target/mswing-demo-lib/
-          dest: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.zip
+          files: ./mswing-demo/target/mswing-demo-lib/ ./mswing-demo/target/mswing-demo-${{ steps.get_version.outputs.pversion }}.jar
+          dest: ./mswing-demo/target/mswing-demo-${{ steps.get_version.outputs.pversion }}.zip
       
       - name: Archive Comps for Release
         uses: papeloto/action-zip@v1
         with:
-          files: ./mswing-comps/target/mswing-comps-v${{ steps.get_version.outputs.pversion }}.jar
-          dest: ./mswing-comps/target/mswing-comps-v${{ steps.get_version.outputs.pversion }}.zip
+          files: ./mswing-comps/target/mswing-comps-${{ steps.get_version.outputs.pversion }}.jar
+          dest: ./mswing-comps/target/mswing-comps-${{ steps.get_version.outputs.pversion }}.zip
       
       - name: Create Changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
@@ -92,8 +92,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.zip
-          asset_name: mswing-demo-v${{ steps.get_version.outputs.pversion }}.zip
+          asset_path: ./mswing-demo/target/mswing-demo-${{ steps.get_version.outputs.pversion }}.zip
+          asset_name: mswing-demo-${{ steps.get_version.outputs.pversion }}.zip
           asset_content_type: application/zip
       
       - name: Attach Lib Artifact to Release
@@ -102,8 +102,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./mswing-comps/target/mswing-comps-v${{ steps.get_version.outputs.pversion }}.zip
-          asset_name: mswing-comps-v${{ steps.get_version.outputs.pversion }}.zip
+          asset_path: ./mswing-comps/target/mswing-comps-${{ steps.get_version.outputs.pversion }}.zip
+          asset_name: mswing-comps-${{ steps.get_version.outputs.pversion }}.zip
           asset_content_type: application/zip
       
       - run: |
