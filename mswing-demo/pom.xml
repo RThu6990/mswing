@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.rthu6990</groupId>
 		<artifactId>mswing</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>mswing-demo</artifactId>
 	<packaging>jar</packaging>
@@ -30,7 +30,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}-v${project.version}</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 
 		<plugins>
 			<plugin>
