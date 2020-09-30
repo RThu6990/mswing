@@ -18,8 +18,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-          settings-path: ${{ github.workspace }} # location for the settings.xml file
       
       - name: Remove SNAPSHOT
         run: mvn org.codehaus.mojo:versions-maven-plugin:2.8.1:set -DremoveSnapshot=true
@@ -43,11 +41,11 @@ jobs:
           files: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.jar ./mswing-demo/target/mswing-demo-lib
           dest: ./mswing-demo/target/mswing-demo-v${{ steps.get_version.outputs.pversion }}.zip
       
-      - name: Archive Lib for Release
+      - name: Archive Comps for Release
         uses: papeloto/action-zip@v1
         with:
-          files: ./mswing-lib/target/mswing-lib-v${{ steps.get_version.outputs.pversion }}.jar
-          dest: ./mswing-lib/target/mswing-lib-v${{ steps.get_version.outputs.pversion }}.zip
+          files: ./mswing-comps/target/mswing-comps-v${{ steps.get_version.outputs.pversion }}.jar
+          dest: ./mswing-comps/target/mswing-comps-v${{ steps.get_version.outputs.pversion }}.zip
       
       - name: Create Changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
@@ -104,25 +102,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./mswing-lib/target/mswing-lib-v${{ steps.get_version.outputs.pversion }}.zip
-          asset_name: mswing-lib-v${{ steps.get_version.outputs.pversion }}.zip
+          asset_path: ./mswing-comps/target/mswing-comps-v${{ steps.get_version.outputs.pversion }}.zip
+          asset_name: mswing-comps-v${{ steps.get_version.outputs.pversion }}.zip
           asset_content_type: application/zip
       
       - run: |
           echo "## Changes in mswing-v${{ steps.get_version.outputs.pversion }}" >> CHANGELOG.md
           echo "${{ steps.read-changelog.outputs.content }}" >> CHANGELOG.md
       
-      - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      
       - name: Fetch Next Development Version in POM File
         run: mvn org.codehaus.mojo:versions-maven-plugin:2.8.1:set -DnextSnapshot=true
       
       - run: git config user.name "GitHub Actions" && git config user.email "actions@github.com"
       - run: git status
-      - run: git add pom.xml mswing-demo/pom.xml mswing-lib/pom.xml CHANGELOG.md
+      - run: git add pom.xml mswing-demo/pom.xml mswing-comps/pom.xml CHANGELOG.md
       - run: git commit -m "Updated pom.xml files and CHANGELOG.md for new version"
       - run: git fetch origin release
       - run: git push origin HEAD:release
+      - run: git fetch origin master
+      - run: git push origin HEAD:master
