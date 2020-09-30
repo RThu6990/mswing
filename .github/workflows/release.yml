@@ -34,7 +34,13 @@ jobs:
       
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-        
+      
+      - name: Make Extra Folder
+        run: mkdir ./mswing-demo/target/mswing-demo-lib/mswing-demo-lib
+      
+      - name: Move Dependencies to Created Folder
+        run: mv ./mswing-demo/target/mswing-demo-lib/*.jar ./mswing-demo/target/mswing-demo-lib/mswing-demo-lib/
+      
       - name: Archive Demo for Release
         uses: papeloto/action-zip@v1
         with:
