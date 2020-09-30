@@ -34,7 +34,6 @@
 
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
@@ -49,19 +48,14 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<archive>
-						<index>true</index>
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>mswing-demo-lib/</classpathPrefix>
 							<mainClass>com.mswing.demo.AppFrame</mainClass>
 						</manifest>
-						<manifestEntries>
-							<codification>${project.build.sourceEncoding}</codification>
-						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
