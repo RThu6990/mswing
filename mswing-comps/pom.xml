@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.rthu6990</groupId>
 		<artifactId>mswing</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>mswing-comps</artifactId>
 	<packaging>jar</packaging>
